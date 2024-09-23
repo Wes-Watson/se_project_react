@@ -6,9 +6,18 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
+import { location } from "../../utils/constants";
+import { APIkey } from "../../utils/constants";
+import { callWeather } from "../../utils/weatherApi";
+import { handleWeatherData } from "../../utils/weatherApi";
 
 function App() {
-  const [weatherInfo, setWeatherInfo] = useState({ type: "hot" });
+  //Global Functions
+  const [weatherInfo, setWeatherInfo] = useState({
+    type: "",
+    temperature: { F: 999 },
+    city: "",
+  });
   const [openModal, setOpenModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const addButtonClick = () => {
@@ -29,6 +38,7 @@ function App() {
     }
   };
 
+  // useEffect Functions
   useEffect(() => {
     if (!openModal) return;
 
@@ -43,10 +53,21 @@ function App() {
     return () => window.removeEventListener("keydown", handleEsc);
   }, [openModal, closeModal]);
 
+  useEffect(() => {
+    callWeather(location, APIkey)
+      .then((res) => {
+        console.log(res);
+        const filterWeather = handleWeatherData(res);
+        setWeatherInfo(filterWeather);
+      })
+      .catch(console.error);
+  }, []);
+
+  //Page Markup
   return (
     <div className="page">
       <div className="page__content">
-        <Header addButtonClick={addButtonClick} />
+        <Header addButtonClick={addButtonClick} weatherInfo={weatherInfo} />
         <Main weatherInfo={weatherInfo} handleImageClick={handleImageClick} />
         <Footer />
       </div>

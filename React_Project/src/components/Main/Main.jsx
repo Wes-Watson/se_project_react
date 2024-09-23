@@ -6,14 +6,14 @@ import ItemCard from "../ItemCard/ItemCard";
 function Main({ weatherInfo, handleImageClick }) {
   return (
     <main>
-      <WeatherCard />
+      <WeatherCard weatherInfo={weatherInfo}/>
       <section className="cards">
-        <p className="cards__info">Today is 75° F / You may want to wear:</p>
+        <p className="cards__info">Today is {weatherInfo.temp} &deg; F / You may want to wear:</p>
         <ul className="cards__list">
           {defaultClothingItems
-            //.filter((item) => {
-            //return item.weather === weatherInfo.type;
-            //})
+            .filter((item) => {
+            return item.weather === weatherInfo.type;
+            })
             .map((item) => {
               return <ItemCard key={item._id} item={item} onImageClick={handleImageClick}/>;
             })}
