@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -22,11 +23,31 @@ function App() {
     setSelectedCard(card);
   };
 
+  const handleModalClose = (evt) => {
+    if (evt.target.classList.contains("modal__open")) {
+      closeModal();
+    }
+  };
+
+  useEffect(() => {
+    if (!openModal) return;
+
+    const handleEsc = (evt) => {
+      if (evt.key === "Escape") {
+        closeModal();
+      }
+    };
+
+    window.addEventListener("keydown", handleEsc);
+
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [openModal, closeModal]);
+
   return (
     <div className="page">
       <div className="page__content">
         <Header addButtonClick={addButtonClick} />
-        <Main weatherInfo={weatherInfo} handleImageClick={handleImageClick}/>
+        <Main weatherInfo={weatherInfo} handleImageClick={handleImageClick} />
         <Footer />
       </div>
       <ModalWithForm
@@ -34,6 +55,7 @@ function App() {
         buttonText="Add garment"
         openModal={openModal}
         closeModal={closeModal}
+        handleModalClose={handleModalClose}
       >
         <label htmlFor="name" className="modal__label">
           Name{" "}
@@ -84,7 +106,12 @@ function App() {
           </label>
         </fieldset>
       </ModalWithForm>
-      <ItemModal openModal={openModal} card={selectedCard} closeModal={closeModal}/>
+      <ItemModal
+        openModal={openModal}
+        card={selectedCard}
+        closeModal={closeModal}
+        handleModalClose={handleModalClose}
+      />
     </div>
   );
 }

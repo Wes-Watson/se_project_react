@@ -1,11 +1,27 @@
 import "./ModalWithForm.css";
 
-function ModalWithForm({ children, title, buttonText, openModal, closeModal }) {
+function ModalWithForm({
+  children,
+  title,
+  buttonText,
+  openModal,
+  closeModal,
+  handleModalClose,
+}) {
   return (
-    <div className={`modal modal_type_${title} ${openModal === "add clothing" ? "modal__open" : ""} `}>
+    <div
+      className={`modal modal_type_${title} ${
+        openModal === "add clothing" ? "modal__open" : ""
+      } `}
+      onClick={handleModalClose}
+    >
       <div className="modal__container">
         <h2 className="modal__title">{title}</h2>
-        <button onClick={closeModal} type="button" className="modal__close"></button>
+        <button
+          onClick={closeModal}
+          type="button"
+          className="modal__close"
+        ></button>
         <form className="modal__form">
           {children}
           <button
