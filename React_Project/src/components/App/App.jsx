@@ -1,0 +1,92 @@
+import { useState } from "react";
+import "./App.css";
+import Header from "../Header/Header";
+import Main from "../Main/Main";
+import Footer from "../Footer/Footer";
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import ItemModal from "../ItemModal/ItemModal";
+
+function App() {
+  const [weatherInfo, setWeatherInfo] = useState({ type: "hot" });
+  const [openModal, setOpenModal] = useState("");
+  const [selectedCard, setSelectedCard] = useState({});
+  const addButtonClick = () => {
+    setOpenModal("add clothing");
+  };
+  const closeModal = () => {
+    setOpenModal("");
+  };
+
+  const handleImageClick = (card) => {
+    setOpenModal("view image");
+    setSelectedCard(card);
+  };
+
+  return (
+    <div className="page">
+      <div className="page__content">
+        <Header addButtonClick={addButtonClick} />
+        <Main weatherInfo={weatherInfo} handleImageClick={handleImageClick}/>
+        <Footer />
+      </div>
+      <ModalWithForm
+        title="New garment"
+        buttonText="Add garment"
+        openModal={openModal}
+        closeModal={closeModal}
+      >
+        <label htmlFor="name" className="modal__label">
+          Name{" "}
+          <input
+            type="text"
+            className="modal__input"
+            id="name"
+            placeholder="Name"
+          />
+        </label>
+        <label htmlFor="image" className="modal__label">
+          Image{" "}
+          <input
+            type="url"
+            className="modal__input"
+            id="image"
+            placeholder="Image URL"
+          />
+        </label>
+        <fieldset className="modal__radio">
+          <legend className="modal__legend">Select the weather type:</legend>
+          <label htmlFor="hot" className="modal__label modal__label_radio">
+            <input
+              type="radio"
+              className="modal__radio-input"
+              id="hot"
+              name="answer"
+            ></input>
+            Hot
+          </label>
+          <label htmlFor="warm" className="modal__label modal__label_radio">
+            <input
+              type="radio"
+              className="modal__radio-input"
+              id="warm"
+              name="answer"
+            ></input>
+            Warm
+          </label>
+          <label htmlFor="cold" className="modal__label modal__label_radio">
+            <input
+              type="radio"
+              className="modal__radio-input"
+              id="cold"
+              name="answer"
+            ></input>
+            Cold
+          </label>
+        </fieldset>
+      </ModalWithForm>
+      <ItemModal openModal={openModal} card={selectedCard} closeModal={closeModal}/>
+    </div>
+  );
+}
+
+export default App;

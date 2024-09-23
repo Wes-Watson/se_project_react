@@ -1,0 +1,30 @@
+.card {
+  border-radius: 5%;
+  width: 323px;
+  height: 326px;
+  list-style-type: none;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  border-color: #808080;
+  border-style: solid;
+  border-width: 0.5px;
+}
+
+.card__image {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 5%;
+}
+
+.card__text {
+  font-family: "CabinetGrotesk-Bold";
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  margin: 0;
+  position: absolute;
+  top: 17px;
+  padding: 2px 12px;
+  background-color: #fff;
+}
