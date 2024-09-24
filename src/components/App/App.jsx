@@ -32,8 +32,8 @@ function App() {
     setSelectedCard(card);
   };
 
-  const handleModalClose = (evt) => {
-    if (evt.target.classList.contains("modal__open")) {
+  const handleOverlay = (evt) => {
+    if (evt.target.classList.contains("modal_open")) {
       closeModal();
     }
   };
@@ -76,7 +76,7 @@ function App() {
         buttonText="Add garment"
         openModal={openModal}
         closeModal={closeModal}
-        handleModalClose={handleModalClose}
+        handleOverlay={handleOverlay}
       >
         <label htmlFor="name" className="modal__label">
           Name{" "}
@@ -131,7 +131,7 @@ function App() {
         openModal={openModal}
         card={selectedCard}
         closeModal={closeModal}
-        handleModalClose={handleModalClose}
+        handleOverlay={handleOverlay}
       />
     </div>
   );
