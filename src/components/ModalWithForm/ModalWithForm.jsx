@@ -11,8 +11,7 @@ function ModalWithForm({
 }) {
   return (
     <div
-      className={`modal modal_type_${title} ${(isOpen =
-        openModal === "add clothing" ? "modal_open" : "")} `}
+      className={`modal modal_type_${title} ${isOpen ? "modal_open" : ""} `}
       onClick={handleOverlay}
     >
       <div className="modal__container">

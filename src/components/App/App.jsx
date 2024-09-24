@@ -77,6 +77,7 @@ function App() {
         openModal={openModal}
         closeModal={closeModal}
         handleOverlay={handleOverlay}
+        isOpen={openModal === "add clothing"}
       >
         <label htmlFor="name" className="modal__label">
           Name{" "}
