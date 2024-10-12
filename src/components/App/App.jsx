@@ -10,6 +10,7 @@ import { location } from "../../utils/constants";
 import { APIkey } from "../../utils/constants";
 import { callWeather } from "../../utils/weatherApi";
 import { handleWeatherData } from "../../utils/weatherApi";
+import {CurrentTemperatureUnitContext} from "../../contexts/CurrentTemperatureUnitContext";
 
 function App() {
   //Global Functions
@@ -18,8 +19,11 @@ function App() {
     temperature: { F: 999 },
     city: "",
   });
+
   const [openModal, setOpenModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
+  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState('F');
+
   const addButtonClick = () => {
     setOpenModal("add clothing");
   };
@@ -37,6 +41,11 @@ function App() {
       closeModal();
     }
   };
+
+  const handleToggleChange = () =>{
+    if (currentTemperatureUnit === "C") setCurrentTemperatureUnit("F");
+    if (currentTemperatureUnit === "F") setCurrentTemperatureUnit("C");
+  }
 
   // useEffect Functions
   useEffect(() => {
@@ -62,11 +71,14 @@ function App() {
       })
       .catch(console.error);
   }, []);
-
+  console.log(currentTemperatureUnit);
   //Page Markup
   return (
+    
     <div className="page">
+      <CurrentTemperatureUnitContext.Provider value={(currentTemperatureUnit, handleToggleChange)}>
       <div className="page__content">
+        
         <Header addButtonClick={addButtonClick} weatherInfo={weatherInfo} />
         <Main weatherInfo={weatherInfo} handleImageClick={handleImageClick} />
         <Footer />
@@ -134,6 +146,7 @@ function App() {
         closeModal={closeModal}
         handleOverlay={handleOverlay}
       />
+      </CurrentTemperatureUnitContext.Provider>
     </div>
   );
 }

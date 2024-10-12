@@ -1,6 +1,9 @@
+
 import "./Header.css";
 import headerLogo from "../../assets/logo.svg";
 import userAvatar from "../../assets/avatar.png";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+
 
 const currentDate = new Date().toLocaleString("default", {
   month: "long",
@@ -17,6 +20,7 @@ function Header({ addButtonClick, weatherInfo }) {
         </p>
       </div>
       <div className="header__container">
+        <ToggleSwitch/>
         <button
           onClick={addButtonClick}
           type="button"
