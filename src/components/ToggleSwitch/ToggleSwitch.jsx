@@ -3,13 +3,6 @@ import "./ToggleSwitch.css";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 
 const ToggleSwitch = () => {
-  // const [currentTepmUnit, handleToggleChange] = useState("F");
-
-  //const handleChange = (e) => {
-  //if (currentTepmUnit === "C") handleToggleChange("F");
-  //if (currentTepmUnit === "F") handleToggleChange("C");
-  //};
-  //console.log(currentTepmUnit);
   const { currentTemperatureUnit, handleToggleChange } = useContext(
     CurrentTemperatureUnitContext
   );

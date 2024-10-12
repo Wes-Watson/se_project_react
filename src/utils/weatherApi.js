@@ -13,8 +13,10 @@ export const callWeather = ({ latitude, longitude }, APIkey) => {
 export const handleWeatherData = (res) => {
   const data = {};
   data.city = res.name;
-  data.temp = res.main.temp;
+  data.temp = {F:res.main.temp, C:Math.round((res.main.temp - 32) * 5/9)};
+  //data= Math.round((res.main.temp - 32) * 5/9)
   data.type = getWeatherType(res.main.temp);
+  console.log(data);
   return data;
 };
 
@@ -27,3 +29,6 @@ const getWeatherType = (temp) => {
     return "cold";
   }
 };
+
+//weather.temperature.F = data.main.temp;
+//weather.temperature.C = Math.round((data.main.temp - 32) * 5/9);

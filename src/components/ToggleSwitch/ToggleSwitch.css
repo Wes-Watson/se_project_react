@@ -10,6 +10,7 @@
   width: 56px;
   height: 28px;
   appearance: none;
+  cursor: pointer;
 }
 
 .toggle__slider {
