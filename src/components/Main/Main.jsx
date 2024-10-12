@@ -10,13 +10,16 @@ function Main({ weatherInfo, handleImageClick }) {
   //CurrentTemperatureUnitContext
   //);
   //console.log(currentTemperatureUnit);
+  const { currentTemperatureUnit, handleToggleChange } = useContext(
+    CurrentTemperatureUnitContext
+  );
   return (
     <main>
       <WeatherCard weatherInfo={weatherInfo} />
       <section className="cards">
         <p className="cards__info">
-          Today is {weatherInfo.currentTemperatureUnit} &deg; / You may want to
-          wear:
+          Today is {weatherInfo?.temp?.[currentTemperatureUnit]} &deg; / You may
+          want to wear:
         </p>
         <ul className="cards__list">
           {defaultClothingItems

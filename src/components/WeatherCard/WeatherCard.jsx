@@ -5,10 +5,11 @@ import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperature
 
 function WeatherCard({ weatherInfo }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
+  console.log(weatherInfo);
   return (
     <section className="weather">
       <p className="weather__info">
-        {weatherInfo[currentTemperatureUnit]} &deg;{currentTemperatureUnit}
+        {weatherInfo?.temp?.[currentTemperatureUnit]} &deg;{currentTemperatureUnit}
       </p>
       <img className="weather__image" src={sunny} alt="Weather Image" />
     </section>

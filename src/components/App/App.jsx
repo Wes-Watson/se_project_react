@@ -68,6 +68,7 @@ function App() {
       .then((res) => {
         console.log(res);
         const filterWeather = handleWeatherData(res);
+        console.log(filterWeather);
         setWeatherInfo(filterWeather);
       })
       .catch(console.error);

@@ -6,7 +6,6 @@ const ToggleSwitch = () => {
   const { currentTemperatureUnit, handleToggleChange } = useContext(
     CurrentTemperatureUnitContext
   );
-  console.log(currentTemperatureUnit);
   return (
     <label className="toggle">
       <input
