@@ -1,6 +1,12 @@
 import "./ItemModal.css";
 
-function ItemModal({ openModal, card, closeModal, handleOverlay }) {
+function ItemModal({
+  openModal,
+  card,
+  closeModal,
+  handleOverlay,
+  handleDeleteClick,
+}) {
   return (
     <div
       className={`modal ${openModal === "view image" ? "modal_open" : ""}`}
@@ -12,10 +18,16 @@ function ItemModal({ openModal, card, closeModal, handleOverlay }) {
           type="button"
           className="modal__close"
         ></button>
-        <img className="modal__image" src={card.link} alt={card.name} />
+        <img className="modal__image" src={card.imageUrl} alt={card.name} />
         <div className="modal__footer">
-          <h2 className="modal__text">{card.name}</h2>
-          <p className="modal__weather">weather:{card.weather}</p>
+          <div>
+            <h2 className="modal__text">{card.name}</h2>
+            <p className="modal__weather">weather: {card.weather}</p>
+          </div>
+          <button className="modal__delete" onClick={handleDeleteClick}>
+            {" "}
+            Delete item
+          </button>
         </div>
       </div>
     </div>

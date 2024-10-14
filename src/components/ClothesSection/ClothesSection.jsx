@@ -1,7 +1,7 @@
 import "./ClothesSection.css";
 import { defaultClothingItems } from "../../utils/constants";
 import ItemCard from "../ItemCard/ItemCard";
-function ClothesSection({ handleImageClick, addButtonClick }) {
+function ClothesSection({ handleImageClick, addButtonClick, clothingItems }) {
   return (
     <div className="clothes">
       <div className="clothes__container">
@@ -11,7 +11,7 @@ function ClothesSection({ handleImageClick, addButtonClick }) {
         </button>
       </div>
       <ul className="cards__list">
-        {defaultClothingItems
+        {clothingItems
           //.filter((item) => {
           //return item.weather === weatherInfo.type;
           //})

@@ -14,6 +14,7 @@ import { handleWeatherData } from "../../utils/weatherApi";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
+import { getItems, addClothing, deleteClothing } from "../../utils/api";
 
 function App() {
   //Global Functions
@@ -26,6 +27,7 @@ function App() {
   const [openModal, setOpenModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+  const [clothingItems, setClothingItems] = useState([]);
 
   const addButtonClick = () => {
     setOpenModal("add clothing");
@@ -51,8 +53,25 @@ function App() {
       : setCurrentTemperatureUnit("F");
   };
 
-  const onAddItem = (values) => {
-    console.log(values);
+  const onAddItem = (item) => {
+    console.log(item);
+    addClothing(item)
+      .then((item) => {
+        setClothingItems([item, ...clothingItems]);
+        closeModal();
+      })
+      .catch(console.error);
+  };
+
+  const handleDeleteClick = () => {
+    deleteClothing(selectedCard._id)
+      .then(() => {
+        setClothingItems((items) =>
+          items.filter((item) => item._id !== selectedCard._id)
+        );
+        closeModal();
+      })
+      .catch(console.error);
   };
 
   // useEffect Functions
@@ -80,7 +99,16 @@ function App() {
       })
       .catch(console.error);
   }, []);
-  console.log(currentTemperatureUnit);
+
+  useEffect(() => {
+    getItems()
+      .then((data) => {
+        console.log(data);
+        setClothingItems(data);
+      })
+      .catch(console.error);
+  }, []);
+
   //Page Markup
   return (
     <div className="page">
@@ -96,6 +124,7 @@ function App() {
                 <Main
                   weatherInfo={weatherInfo}
                   handleImageClick={handleImageClick}
+                  clothingItems={clothingItems}
                 />
               }
             />
@@ -105,6 +134,7 @@ function App() {
                 <Profile
                   handleImageClick={handleImageClick}
                   addButtonClick={addButtonClick}
+                  clothingItems={clothingItems}
                 />
               }
             />
@@ -125,6 +155,7 @@ function App() {
           card={selectedCard}
           closeModal={closeModal}
           handleOverlay={handleOverlay}
+          handleDeleteClick={handleDeleteClick}
         />
       </CurrentTemperatureUnitContext.Provider>
     </div>

@@ -7,11 +7,15 @@
 
 .modal__image {
   width: 100%;
+  height: 498px;
   border-radius: 16px 16px 0 0;
 }
 
 .modal__footer {
   padding-left: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .modal__text {
@@ -30,4 +34,17 @@
   font-size: 20px;
   line-height: 24px;
   margin-bottom: 32px;
+}
+
+.modal__delete {
+  border: none;
+  background: none;
+  margin-top: 20px;
+  margin-right: 32px;
+  color: #ff4d00;
+  cursor: pointer;
+  font-family: "CabinetGrotesk-Bold";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
 }

@@ -15,13 +15,13 @@ const AddItemModal = ({
     setName(e.target.value);
   };
 
-  const [url, setURL] = useState("");
+  const [imageUrl, setURL] = useState("");
   const handleURLChange = (e) => {
     console.log(e.target.value);
     setURL(e.target.value);
   };
 
-  const [temp, setTemp] = useState("");
+  const [weather, setTemp] = useState("");
   const handleTempChange = (e) => {
     setTemp(e.target.value);
     console.log(e.target.value);
@@ -36,7 +36,7 @@ const AddItemModal = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({ name, url, temp }, formReset());
+    onAddItem({ name, imageUrl, weather }, formReset());
   };
 
   return (
@@ -67,7 +67,7 @@ const AddItemModal = ({
           className="modal__input"
           id="image"
           placeholder="Image URL"
-          value={url}
+          value={imageUrl}
           onChange={handleURLChange}
         />
       </label>
@@ -79,7 +79,7 @@ const AddItemModal = ({
             className="modal__radio-input"
             id="hot"
             name="answer"
-            checked={temp === "hot"}
+            checked={weather === "hot"}
             value="hot"
             onChange={handleTempChange}
           ></input>
@@ -91,7 +91,7 @@ const AddItemModal = ({
             className="modal__radio-input"
             id="warm"
             name="answer"
-            checked={temp === "warm"}
+            checked={weather === "warm"}
             value="warm"
             onChange={handleTempChange}
           ></input>
@@ -103,7 +103,7 @@ const AddItemModal = ({
             className="modal__radio-input"
             id="cold"
             name="answer"
-            checked={temp === "cold"}
+            checked={weather === "cold"}
             value="cold"
             onChange={handleTempChange}
           ></input>
