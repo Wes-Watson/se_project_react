@@ -36,7 +36,7 @@ const AddItemModal = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({ name, imageUrl, weather }, formReset());
+    onAddItem({ name, imageUrl, weather }, formReset);
   };
 
   return (
@@ -113,5 +113,7 @@ const AddItemModal = ({
     </ModalWithForm>
   );
 };
+
+export { formReset };
 
 export default AddItemModal;

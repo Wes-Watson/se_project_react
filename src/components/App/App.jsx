@@ -15,6 +15,7 @@ import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperature
 import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import { getItems, addClothing, deleteClothing } from "../../utils/api";
+import { formReset } from "../AddItemModal/AddItemModal";
 
 function App() {
   //Global Functions
@@ -59,6 +60,7 @@ function App() {
       .then((item) => {
         setClothingItems([item, ...clothingItems]);
         closeModal();
+        formReset();
       })
       .catch(console.error);
   };
