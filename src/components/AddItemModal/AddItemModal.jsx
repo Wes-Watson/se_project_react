@@ -31,7 +31,6 @@ const AddItemModal = ({
     setTemp("");
     setURL("");
     setName("");
-    console.log("reset");
   }
 
   const handleSubmit = (e) => {
@@ -113,7 +112,5 @@ const AddItemModal = ({
     </ModalWithForm>
   );
 };
-
-export { formReset };
 
 export default AddItemModal;
