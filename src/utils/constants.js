@@ -43,3 +43,7 @@ export const location = {
 };
 
 export const APIkey = "2fcf3debcdf32a1fae1e28afaa0aeeb0";
+//42.5609
+//77.6961
+//latitude: 30.2672,
+  //longitude: 97.7431,

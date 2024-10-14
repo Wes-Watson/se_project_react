@@ -1,0 +1,25 @@
+.clothes__container {
+  display: flex;
+  margin-top: 31px;
+  margin-bottom: 16px;
+}
+
+.clothes__text {
+  margin: 0;
+  padding-right: 20px;
+  font-family: "CabinetGrotesk-Bold";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24.8px;
+}
+
+.clothes__button {
+  border: none;
+  background: none;
+  font-family: "CabinetGrotesk-Bold";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24.8px;
+  opacity: 0.6;
+  cursor: pointer;
+}

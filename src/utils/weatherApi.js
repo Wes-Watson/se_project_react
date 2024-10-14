@@ -14,7 +14,7 @@ export const handleWeatherData = (res) => {
   const data = {};
   data.city = res.name;
   data.temp = {
-    F: res.main.temp,
+    F: Math.round(res.main.temp),
     C: Math.round(((res.main.temp - 32) * 5) / 9),
   };
   data.type = getWeatherType(res.main.temp);

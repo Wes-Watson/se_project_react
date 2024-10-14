@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -11,6 +12,8 @@ import { APIkey } from "../../utils/constants";
 import { callWeather } from "../../utils/weatherApi";
 import { handleWeatherData } from "../../utils/weatherApi";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
+import Profile from "../Profile/Profile";
+import AddItemModal from "../AddItemModal/AddItemModal";
 
 function App() {
   //Global Functions
@@ -48,6 +51,10 @@ function App() {
       : setCurrentTemperatureUnit("F");
   };
 
+  const onAddItem = (values) => {
+    console.log(values);
+  };
+
   // useEffect Functions
   useEffect(() => {
     if (!openModal) return;
@@ -82,66 +89,37 @@ function App() {
       >
         <div className="page__content">
           <Header addButtonClick={addButtonClick} weatherInfo={weatherInfo} />
-          <Main weatherInfo={weatherInfo} handleImageClick={handleImageClick} />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  weatherInfo={weatherInfo}
+                  handleImageClick={handleImageClick}
+                />
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <Profile
+                  handleImageClick={handleImageClick}
+                  addButtonClick={addButtonClick}
+                />
+              }
+            />
+          </Routes>
+
           <Footer />
         </div>
-        <ModalWithForm
-          title="New garment"
-          buttonText="Add garment"
+
+        <AddItemModal
           openModal={openModal}
           closeModal={closeModal}
           handleOverlay={handleOverlay}
           isOpen={openModal === "add clothing"}
-        >
-          <label htmlFor="name" className="modal__label">
-            Name{" "}
-            <input
-              type="text"
-              className="modal__input"
-              id="name"
-              placeholder="Name"
-            />
-          </label>
-          <label htmlFor="image" className="modal__label">
-            Image{" "}
-            <input
-              type="url"
-              className="modal__input"
-              id="image"
-              placeholder="Image URL"
-            />
-          </label>
-          <fieldset className="modal__radio">
-            <legend className="modal__legend">Select the weather type:</legend>
-            <label htmlFor="hot" className="modal__label modal__label_radio">
-              <input
-                type="radio"
-                className="modal__radio-input"
-                id="hot"
-                name="answer"
-              ></input>
-              Hot
-            </label>
-            <label htmlFor="warm" className="modal__label modal__label_radio">
-              <input
-                type="radio"
-                className="modal__radio-input"
-                id="warm"
-                name="answer"
-              ></input>
-              Warm
-            </label>
-            <label htmlFor="cold" className="modal__label modal__label_radio">
-              <input
-                type="radio"
-                className="modal__radio-input"
-                id="cold"
-                name="answer"
-              ></input>
-              Cold
-            </label>
-          </fieldset>
-        </ModalWithForm>
+          onAddItem={onAddItem}
+        />
         <ItemModal
           openModal={openModal}
           card={selectedCard}
