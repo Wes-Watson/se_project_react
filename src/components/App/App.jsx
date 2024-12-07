@@ -15,6 +15,7 @@ import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperature
 import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import { getItems, addClothing, deleteClothing } from "../../utils/api";
+import LoginModal from "../LoginModal/LoginModal";
 
 function App() {
   //Global Functions
@@ -158,6 +159,7 @@ function App() {
           handleOverlay={handleOverlay}
           handleDeleteClick={handleDeleteClick}
         />
+        <LoginModal />
       </CurrentTemperatureUnitContext.Provider>
     </div>
   );

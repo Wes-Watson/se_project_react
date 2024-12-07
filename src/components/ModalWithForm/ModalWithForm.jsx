@@ -9,6 +9,7 @@ function ModalWithForm({
   handleOverlay,
   isOpen,
   onSubmit,
+  additionalText,
 }) {
   return (
     <div
@@ -24,12 +25,15 @@ function ModalWithForm({
         ></button>
         <form className="modal__form" onSubmit={onSubmit}>
           {children}
-          <button
-            type="submit"
-            className="modal__submit modal__submit_disabled"
-          >
-            {buttonText}
-          </button>
+          <div className="modal__submit_container">
+            <button
+              type="submit"
+              className="modal__submit modal__submit_disabled"
+            >
+              {buttonText}
+            </button>
+            <button className="modal__change">{additionalText}</button>
+          </div>
         </form>
       </div>
     </div>
