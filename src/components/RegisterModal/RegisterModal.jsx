@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const LoginModal = ({
+const RegisterModal = ({
   openModal,
   closeModal,
   handleOverlay,
@@ -21,16 +21,16 @@ const LoginModal = ({
     setURL(e.target.value);
   };
 
-  const [password, setPassword] = useState("");
-  const handlePasswordChange = (e) => {
-    console.log(e.target.value);
-    setPassword(e.target.value);
-  };
-
   const [email, setEmail] = useState("");
   const handleEmailChange = (e) => {
     console.log(e.target.value);
     setEmail(e.target.value);
+  };
+
+  const [password, setPassword] = useState("");
+  const handlePasswordChange = (e) => {
+    console.log(e.target.value);
+    setPassword(e.target.value);
   };
 
   const [weather, setTemp] = useState("");
@@ -41,6 +41,8 @@ const LoginModal = ({
 
   function formReset() {
     setEmail("");
+    setURL("");
+    setName("");
     setPassword("");
   }
 
@@ -51,13 +53,13 @@ const LoginModal = ({
 
   return (
     <ModalWithForm
-      title="Log in"
-      buttonText="Log in"
-      additionalText="or Sign up"
+      title="Register"
+      buttonText="Sign Up"
+      additionalText="or Login"
       openModal={openModal}
       closeModal={closeModal}
       handleOverlay={handleOverlay}
-      isOpen={openModal === "login"}
+      isOpen={openModal === "register user"}
       onSubmit={handleSubmit}
     >
       <label htmlFor="Email" className="modal__label">
@@ -69,6 +71,7 @@ const LoginModal = ({
           placeholder="Email"
           value={email}
           onChange={handleEmailChange}
+          required
         />
       </label>
       <label htmlFor="Password" className="modal__label">
@@ -80,10 +83,35 @@ const LoginModal = ({
           placeholder="Password"
           value={password}
           onChange={handlePasswordChange}
+          required
+        />
+      </label>
+      <label htmlFor="Name" className="modal__label">
+        Name{" "}
+        <input
+          type="text"
+          className="modal__input"
+          id="Name"
+          placeholder="Name"
+          value={name}
+          onChange={handleNameChange}
+          required
+        />
+      </label>
+      <label htmlFor="image" className="modal__label">
+        Avatar URL{" "}
+        <input
+          type="url"
+          className="modal__input"
+          id="image"
+          placeholder="Avatar URL"
+          value={imageUrl}
+          onChange={handleURLChange}
+          required
         />
       </label>
     </ModalWithForm>
   );
 };
 
-export default LoginModal;
+export default RegisterModal;

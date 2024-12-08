@@ -16,6 +16,7 @@ import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import { getItems, addClothing, deleteClothing } from "../../utils/api";
 import LoginModal from "../LoginModal/LoginModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
 
 function App() {
   //Global Functions
@@ -160,6 +161,7 @@ function App() {
           handleDeleteClick={handleDeleteClick}
         />
         <LoginModal />
+        <RegisterModal />
       </CurrentTemperatureUnitContext.Provider>
     </div>
   );
