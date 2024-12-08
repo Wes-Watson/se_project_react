@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -19,6 +19,7 @@ import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import * as auth from "../../utils/auth";
 import ProtectedRoute from "../../utils/ProtectedRoute";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function App() {
   //Global Functions
@@ -28,17 +29,14 @@ function App() {
     city: "",
   });
 
+  const navigate = useNavigate();
+
   const [openModal, setOpenModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [data, setData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+  const [currentUser, setCurrentUser] = useState({});
 
   const addButtonClick = () => {
     setOpenModal("add clothing");
@@ -86,6 +84,22 @@ function App() {
       .then(() => {
         closeModal();
         formReset();
+        logInUser({ email, password });
+      })
+      .catch(console.error);
+  };
+
+  const logInUser = ({ email, password }, formReset) => {
+    if (!email || !password) {
+      return;
+    }
+    auth
+      .signIn({ email, password })
+      .then(() => {
+        closeModal();
+        setIsLoggedIn(true);
+        formReset();
+        navigate("/profile");
       })
       .catch(console.error);
   };
@@ -138,75 +152,78 @@ function App() {
 
   //Page Markup
   return (
-    <div className="page">
-      <CurrentTemperatureUnitContext.Provider
-        value={{ currentTemperatureUnit, handleToggleChange }}
-      >
-        <div className="page__content">
-          <Header
-            addButtonClick={addButtonClick}
-            weatherInfo={weatherInfo}
-            logInClick={logInClick}
-          />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Main
-                  weatherInfo={weatherInfo}
-                  handleImageClick={handleImageClick}
-                  clothingItems={clothingItems}
-                />
-              }
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
+        <CurrentTemperatureUnitContext.Provider
+          value={{ currentTemperatureUnit, handleToggleChange }}
+        >
+          <div className="page__content">
+            <Header
+              addButtonClick={addButtonClick}
+              weatherInfo={weatherInfo}
+              logInClick={logInClick}
             />
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Profile
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Main
+                    weatherInfo={weatherInfo}
                     handleImageClick={handleImageClick}
-                    addButtonClick={addButtonClick}
                     clothingItems={clothingItems}
                   />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
+                    <Profile
+                      handleImageClick={handleImageClick}
+                      addButtonClick={addButtonClick}
+                      clothingItems={clothingItems}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
 
-          <Footer />
-        </div>
+            <Footer />
+          </div>
 
-        <AddItemModal
-          openModal={openModal}
-          closeModal={closeModal}
-          handleOverlay={handleOverlay}
-          isOpen={openModal === "add clothing"}
-          onAddItem={onAddItem}
-        />
-        <ItemModal
-          openModal={openModal}
-          card={selectedCard}
-          closeModal={closeModal}
-          handleOverlay={handleOverlay}
-          handleDeleteClick={handleDeleteClick}
-        />
-        <LoginModal
-          openModal={openModal}
-          closeModal={closeModal}
-          handleOverlay={handleOverlay}
-          isOpen={openModal === "log in"}
-          setOpenModal={setOpenModal}
-        />
-        <RegisterModal
-          openModal={openModal}
-          closeModal={closeModal}
-          handleOverlay={handleOverlay}
-          isOpen={openModal === "register user"}
-          setOpenModal={setOpenModal}
-          registerUser={registerUser}
-        />
-      </CurrentTemperatureUnitContext.Provider>
-    </div>
+          <AddItemModal
+            openModal={openModal}
+            closeModal={closeModal}
+            handleOverlay={handleOverlay}
+            isOpen={openModal === "add clothing"}
+            onAddItem={onAddItem}
+          />
+          <ItemModal
+            openModal={openModal}
+            card={selectedCard}
+            closeModal={closeModal}
+            handleOverlay={handleOverlay}
+            handleDeleteClick={handleDeleteClick}
+          />
+          <LoginModal
+            openModal={openModal}
+            closeModal={closeModal}
+            handleOverlay={handleOverlay}
+            isOpen={openModal === "log in"}
+            setOpenModal={setOpenModal}
+            logInUser={logInUser}
+          />
+          <RegisterModal
+            openModal={openModal}
+            closeModal={closeModal}
+            handleOverlay={handleOverlay}
+            isOpen={openModal === "register user"}
+            setOpenModal={setOpenModal}
+            registerUser={registerUser}
+          />
+        </CurrentTemperatureUnitContext.Provider>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

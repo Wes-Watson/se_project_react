@@ -13,17 +13,36 @@ function signUp({ name, avatar, email, password }) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ name, avatar, email, password }),
-  }).then(checkResponse);
+  })
+    .then(checkResponse)
+    .then(() => {
+      signIn({ email, password });
+    });
 }
 
 function signIn({ email, password }) {
-  return fetch(`${baseUrl}/users`, {
+  return fetch(`${baseUrl}/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
+  })
+    .then(checkResponse)
+    .then((data) => {
+      localStorage.setItem("jwt", data.token);
+      return data;
+    });
+}
+
+function getUser(token) {
+  return fetch(baseUrl + "users/me", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
   }).then(checkResponse);
 }
 
-export { signIn, signUp };
+export { signIn, signUp, getUser };

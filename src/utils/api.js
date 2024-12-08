@@ -10,7 +10,7 @@ function getItems() {
   return fetch(`${baseUrl}/items`).then(checkResponse);
 }
 
-function addClothing({ name, weather, imageUrl }) {
+function addClothing({ name, weather, imageUrl }, token) {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -18,7 +18,7 @@ function addClothing({ name, weather, imageUrl }) {
   }).then(checkResponse);
 }
 
-function deleteClothing(id) {
+function deleteClothing(id, token) {
   return fetch(`${baseUrl}/items/${id}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
