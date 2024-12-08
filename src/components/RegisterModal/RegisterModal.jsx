@@ -6,7 +6,8 @@ const RegisterModal = ({
   closeModal,
   handleOverlay,
   isOpen,
-  onAddItem,
+  registerUser,
+  setOpenModal,
 }) => {
   //useState functions
   const [name, setName] = useState("");
@@ -15,7 +16,7 @@ const RegisterModal = ({
     setName(e.target.value);
   };
 
-  const [imageUrl, setURL] = useState("");
+  const [avatar, setURL] = useState("");
   const handleURLChange = (e) => {
     console.log(e.target.value);
     setURL(e.target.value);
@@ -33,12 +34,6 @@ const RegisterModal = ({
     setPassword(e.target.value);
   };
 
-  const [weather, setTemp] = useState("");
-  const handleTempChange = (e) => {
-    setTemp(e.target.value);
-    console.log(e.target.value);
-  };
-
   function formReset() {
     setEmail("");
     setURL("");
@@ -48,20 +43,25 @@ const RegisterModal = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({ name, imageUrl, weather }, formReset);
+    registerUser({ name, avatar, email, password }, formReset);
+  };
+  const changeModal = (evt) => {
+    evt.preventDefault();
+    console.log("click");
+    setOpenModal("log in");
   };
 
   return (
     <ModalWithForm
       title="Register"
       buttonText="Sign Up"
-      additionalText="or Login"
+      additionalText="or Log in"
       openModal={openModal}
       closeModal={closeModal}
       handleOverlay={handleOverlay}
       isOpen={openModal === "register user"}
-      //changeModal={openModal === "log in"}
-      //onSubmit={handleSubmit}
+      changeModal={changeModal}
+      onSubmit={handleSubmit}
     >
       <label htmlFor="Email" className="modal__label">
         Email{" "}
@@ -80,7 +80,7 @@ const RegisterModal = ({
         <input
           type="Password"
           className="modal__input"
-          id="image"
+          id="Password"
           placeholder="Password"
           value={password}
           onChange={handlePasswordChange}
@@ -99,14 +99,14 @@ const RegisterModal = ({
           required
         />
       </label>
-      <label htmlFor="image" className="modal__label">
+      <label htmlFor="url" className="modal__label">
         Avatar URL{" "}
         <input
           type="url"
           className="modal__input"
-          id="image"
+          id="avatar"
           placeholder="Avatar URL"
-          value={imageUrl}
+          value={avatar}
           onChange={handleURLChange}
           required
         />

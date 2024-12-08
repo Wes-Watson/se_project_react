@@ -7,6 +7,7 @@ const LoginModal = ({
   handleOverlay,
   isOpen,
   onAddItem,
+  setOpenModal,
 }) => {
   //useState functions
   const [name, setName] = useState("");
@@ -53,9 +54,10 @@ const LoginModal = ({
     setOpenModal("add clothing");
   };
 
-  const changeModal = () => {
+  const changeModal = (evt) => {
+    evt.preventDefault();
     console.log("click");
-    //openModal === "register user";
+    setOpenModal("register user");
   };
 
   return (
@@ -75,7 +77,7 @@ const LoginModal = ({
         <input
           type="Email"
           className="modal__input"
-          id="Email"
+          id="Log in"
           placeholder="Email"
           value={email}
           onChange={handleEmailChange}
@@ -86,7 +88,7 @@ const LoginModal = ({
         <input
           type="Password"
           className="modal__input"
-          id="image"
+          id="Password"
           placeholder="Password"
           value={password}
           onChange={handlePasswordChange}

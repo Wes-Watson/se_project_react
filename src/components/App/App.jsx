@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -17,6 +17,8 @@ import AddItemModal from "../AddItemModal/AddItemModal";
 import { getItems, addClothing, deleteClothing } from "../../utils/api";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
+import * as auth from "../../utils/auth";
+import ProtectedRoute from "../../utils/ProtectedRoute";
 
 function App() {
   //Global Functions
@@ -30,13 +32,19 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [data, setData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
   const addButtonClick = () => {
     setOpenModal("add clothing");
   };
 
   const logInClick = () => {
-    console.log("Yo!!!");
     setOpenModal("log in");
   };
 
@@ -66,6 +74,16 @@ function App() {
     addClothing(item)
       .then((item) => {
         setClothingItems([item, ...clothingItems]);
+        closeModal();
+        formReset();
+      })
+      .catch(console.error);
+  };
+
+  const registerUser = ({ email, password, name, avatar }, formReset) => {
+    auth
+      .signUp({ email, password, name, avatar })
+      .then(() => {
         closeModal();
         formReset();
       })
@@ -144,11 +162,13 @@ function App() {
             <Route
               path="/profile"
               element={
-                <Profile
-                  handleImageClick={handleImageClick}
-                  addButtonClick={addButtonClick}
-                  clothingItems={clothingItems}
-                />
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <Profile
+                    handleImageClick={handleImageClick}
+                    addButtonClick={addButtonClick}
+                    clothingItems={clothingItems}
+                  />
+                </ProtectedRoute>
               }
             />
           </Routes>
@@ -175,12 +195,15 @@ function App() {
           closeModal={closeModal}
           handleOverlay={handleOverlay}
           isOpen={openModal === "log in"}
+          setOpenModal={setOpenModal}
         />
         <RegisterModal
           openModal={openModal}
           closeModal={closeModal}
           handleOverlay={handleOverlay}
           isOpen={openModal === "register user"}
+          setOpenModal={setOpenModal}
+          registerUser={registerUser}
         />
       </CurrentTemperatureUnitContext.Provider>
     </div>
