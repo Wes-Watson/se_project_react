@@ -34,6 +34,12 @@ function App() {
   const addButtonClick = () => {
     setOpenModal("add clothing");
   };
+
+  const logInClick = () => {
+    console.log("Yo!!!");
+    setOpenModal("log in");
+  };
+
   const closeModal = () => {
     setOpenModal("");
   };
@@ -119,7 +125,11 @@ function App() {
         value={{ currentTemperatureUnit, handleToggleChange }}
       >
         <div className="page__content">
-          <Header addButtonClick={addButtonClick} weatherInfo={weatherInfo} />
+          <Header
+            addButtonClick={addButtonClick}
+            weatherInfo={weatherInfo}
+            logInClick={logInClick}
+          />
           <Routes>
             <Route
               path="/"
@@ -160,8 +170,18 @@ function App() {
           handleOverlay={handleOverlay}
           handleDeleteClick={handleDeleteClick}
         />
-        <LoginModal />
-        <RegisterModal />
+        <LoginModal
+          openModal={openModal}
+          closeModal={closeModal}
+          handleOverlay={handleOverlay}
+          isOpen={openModal === "log in"}
+        />
+        <RegisterModal
+          openModal={openModal}
+          closeModal={closeModal}
+          handleOverlay={handleOverlay}
+          isOpen={openModal === "register user"}
+        />
       </CurrentTemperatureUnitContext.Provider>
     </div>
   );

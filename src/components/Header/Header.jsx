@@ -9,7 +9,7 @@ const currentDate = new Date().toLocaleString("default", {
   day: "numeric",
 });
 
-function Header({ addButtonClick, weatherInfo }) {
+function Header({ addButtonClick, weatherInfo, logInClick }) {
   return (
     <header className="header">
       <div className="header__container">
@@ -29,6 +29,7 @@ function Header({ addButtonClick, weatherInfo }) {
         >
           + Add Clothes
         </button>
+        <button onClick={logInClick}>Log in</button>
         <Link to="/profile" className="header__link">
           <div className="header__user-container">
             <p className="header__username">User Name</p>

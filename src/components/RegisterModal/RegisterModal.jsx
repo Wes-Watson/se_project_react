@@ -60,7 +60,8 @@ const RegisterModal = ({
       closeModal={closeModal}
       handleOverlay={handleOverlay}
       isOpen={openModal === "register user"}
-      onSubmit={handleSubmit}
+      //changeModal={openModal === "log in"}
+      //onSubmit={handleSubmit}
     >
       <label htmlFor="Email" className="modal__label">
         Email{" "}

@@ -49,6 +49,15 @@ const LoginModal = ({
     onAddItem({ name, imageUrl, weather }, formReset);
   };
 
+  const addButtonClick = () => {
+    setOpenModal("add clothing");
+  };
+
+  const changeModal = () => {
+    console.log("click");
+    //openModal === "register user";
+  };
+
   return (
     <ModalWithForm
       title="Log in"
@@ -57,8 +66,9 @@ const LoginModal = ({
       openModal={openModal}
       closeModal={closeModal}
       handleOverlay={handleOverlay}
-      isOpen={openModal === "login"}
-      onSubmit={handleSubmit}
+      isOpen={openModal === "log in"}
+      changeModal={changeModal}
+      //onSubmit={handleSubmit}
     >
       <label htmlFor="Email" className="modal__label">
         Email{" "}

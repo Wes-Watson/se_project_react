@@ -103,6 +103,7 @@
   line-height: 20px;
   border: none;
   margin-left: 12px;
+  cursor: pointer;
 }
 
 .modal__submit:hover:not(:disabled) {

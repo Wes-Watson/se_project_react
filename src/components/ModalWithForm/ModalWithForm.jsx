@@ -10,6 +10,7 @@ function ModalWithForm({
   isOpen,
   onSubmit,
   additionalText,
+  changeModal,
 }) {
   return (
     <div
@@ -32,7 +33,7 @@ function ModalWithForm({
             >
               {buttonText}
             </button>
-            <button className="modal__change">{additionalText}</button>
+            <button className="modal__change" onClick={changeModal}>{additionalText}</button>
           </div>
         </form>
       </div>
