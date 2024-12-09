@@ -1,4 +1,6 @@
 import "./ItemModal.css";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useContext } from "react";
 
 function ItemModal({
   openModal,
@@ -7,6 +9,8 @@ function ItemModal({
   handleOverlay,
   handleDeleteClick,
 }) {
+  const currentUser = useContext(CurrentUserContext);
+  const isOwn = card.owner === currentUser._id;
   return (
     <div
       className={`modal ${openModal === "view image" ? "modal_open" : ""}`}
@@ -24,10 +28,12 @@ function ItemModal({
             <h2 className="modal__text">{card.name}</h2>
             <p className="modal__weather">weather: {card.weather}</p>
           </div>
-          <button className="modal__delete" onClick={handleDeleteClick}>
-            {" "}
-            Delete item
-          </button>
+          {isOwn && (
+            <button className="modal__delete" onClick={handleDeleteClick}>
+              {" "}
+              Delete item
+            </button>
+          )}
         </div>
       </div>
     </div>

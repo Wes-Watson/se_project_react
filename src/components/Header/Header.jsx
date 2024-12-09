@@ -11,7 +11,13 @@ const currentDate = new Date().toLocaleString("default", {
   day: "numeric",
 });
 
-function Header({ addButtonClick, weatherInfo, logInClick, isLoggedIn }) {
+function Header({
+  addButtonClick,
+  weatherInfo,
+  logInClick,
+  isLoggedIn,
+  signUpClick,
+}) {
   const currentUser = useContext(CurrentUserContext);
   return (
     <header className="header">
@@ -23,35 +29,48 @@ function Header({ addButtonClick, weatherInfo, logInClick, isLoggedIn }) {
           {currentDate}, {weatherInfo.city}
         </p>
       </div>
-      <div className="header__container">
-        <ToggleSwitch />
-        <button
-          onClick={addButtonClick}
-          type="button"
-          className="header__button"
-        >
-          + Add Clothes
-        </button>
-        <button onClick={logInClick}>Log in</button>
-        <Link to="/profile" className="header__link">
-          <div className="header__user-container">
-            <p className="header__username">{currentUser.name}</p>
-            {!currentUser.avatar ? (
-              <img
-                className="header__avatar"
-                src={userAvatar}
-                alt="User Avatar"
-              />
-            ) : (
-              <img
-                className="header__avatar"
-                src={currentUser.avatar}
-                alt="User Avatar"
-              />
-            )}
-          </div>
-        </Link>
-      </div>
+      {isLoggedIn ? (
+        <div className="header__container">
+          <ToggleSwitch />
+
+          <button
+            onClick={addButtonClick}
+            type="button"
+            className="header__button"
+          >
+            + Add Clothes
+          </button>
+
+          <Link to="/profile" className="header__link">
+            <div className="header__user-container">
+              <p className="header__username">{currentUser.name}</p>
+              {!currentUser.avatar ? (
+                <img
+                  className="header__avatar"
+                  src={userAvatar}
+                  alt="User Avatar"
+                />
+              ) : (
+                <img
+                  className="header__avatar"
+                  src={currentUser.avatar}
+                  alt="User Avatar"
+                />
+              )}
+            </div>
+          </Link>
+        </div>
+      ) : (
+        <div className="header__container">
+          <ToggleSwitch />
+          <button onClick={logInClick} className="header__button">
+            Log In
+          </button>
+          <button onClick={signUpClick} className="header__button">
+            Sign Up
+          </button>
+        </div>
+      )}
     </header>
   );
 }

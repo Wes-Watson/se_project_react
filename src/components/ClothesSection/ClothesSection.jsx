@@ -1,7 +1,15 @@
 import "./ClothesSection.css";
 import { defaultClothingItems } from "../../utils/constants";
 import ItemCard from "../ItemCard/ItemCard";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useContext } from "react";
+
 function ClothesSection({ handleImageClick, addButtonClick, clothingItems }) {
+  const currentUser = useContext(CurrentUserContext);
+  
+  const userItems = clothingItems.filter((item) => {
+    return item.owner === currentUser._id;
+  });
   return (
     <div className="clothes">
       <div className="clothes__container">
@@ -11,7 +19,7 @@ function ClothesSection({ handleImageClick, addButtonClick, clothingItems }) {
         </button>
       </div>
       <ul className="cards__list">
-        {clothingItems
+        {userItems
           //.filter((item) => {
           //return item.weather === weatherInfo.type;
           //})

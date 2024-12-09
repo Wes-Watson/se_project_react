@@ -20,6 +20,7 @@ import RegisterModal from "../RegisterModal/RegisterModal";
 import * as auth from "../../utils/auth";
 import ProtectedRoute from "../../utils/ProtectedRoute";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
 
 function App() {
   //Global Functions
@@ -46,6 +47,14 @@ function App() {
     setOpenModal("log in");
   };
 
+  const editUserClick = () => {
+    setOpenModal("Edit");
+  };
+
+  const signUpClick = () => {
+    setOpenModal("register user");
+  };
+
   const closeModal = () => {
     setOpenModal("");
   };
@@ -68,8 +77,9 @@ function App() {
   };
 
   const onAddItem = (item, formReset) => {
-    console.log(item);
-    addClothing(item)
+    const token = localStorage.getItem("jwt");
+
+    addClothing(item, token)
       .then((item) => {
         setClothingItems([item, ...clothingItems]);
         closeModal();
@@ -108,7 +118,8 @@ function App() {
   };
 
   const handleDeleteClick = () => {
-    deleteClothing(selectedCard._id)
+    const token = localStorage.getItem("jwt");
+    deleteClothing(selectedCard._id, token)
       .then(() => {
         setClothingItems((items) =>
           items.filter((item) => item._id !== selectedCard._id)
@@ -153,6 +164,22 @@ function App() {
       .catch(console.error);
   }, []);
 
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (!token) {
+      return;
+    }
+    auth
+      .getUser(token)
+      .then((user) => {
+        setIsLoggedIn(true);
+        setCurrentUser(user);
+      })
+      .catch((err) => {
+        console.error;
+      });
+  }, []);
+
   //Page Markup
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -165,6 +192,8 @@ function App() {
               addButtonClick={addButtonClick}
               weatherInfo={weatherInfo}
               logInClick={logInClick}
+              signUpClick={signUpClick}
+              isLoggedIn={isLoggedIn}
             />
             <Routes>
               <Route
@@ -185,6 +214,7 @@ function App() {
                       handleImageClick={handleImageClick}
                       addButtonClick={addButtonClick}
                       clothingItems={clothingItems}
+                      editUserClick={editUserClick}
                     />
                   </ProtectedRoute>
                 }
@@ -223,6 +253,13 @@ function App() {
             isOpen={openModal === "register user"}
             setOpenModal={setOpenModal}
             registerUser={registerUser}
+          />
+          <EditProfileModal
+            openModal={openModal}
+            closeModal={closeModal}
+            handleOverlay={handleOverlay}
+            isOpen={openModal === "Edit"}
+            setOpenModal={setOpenModal}
           />
         </CurrentTemperatureUnitContext.Provider>
       </div>
