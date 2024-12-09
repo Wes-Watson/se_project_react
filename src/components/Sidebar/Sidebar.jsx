@@ -3,7 +3,7 @@ import userAvatar from "../../assets/avatar.png";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useContext } from "react";
 
-function Sidebar(editUserClick) {
+function Sidebar({editUserClick}) {
   const currentUser = useContext(CurrentUserContext);
   return (
     <div className="sidebar">
