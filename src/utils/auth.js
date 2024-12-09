@@ -36,7 +36,7 @@ function signIn({ email, password }) {
 }
 
 function getUser(token) {
-  return fetch(baseUrl + "users/me", {
+  return fetch(`${baseUrl}/users/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

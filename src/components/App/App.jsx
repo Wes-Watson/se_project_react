@@ -95,11 +95,14 @@ function App() {
     }
     auth
       .signIn({ email, password })
-      .then(() => {
-        closeModal();
-        setIsLoggedIn(true);
-        formReset();
-        navigate("/profile");
+      .then((data) => {
+        auth.getUser(data.token).then((user) => {
+          setIsLoggedIn(true);
+          setCurrentUser(user);
+          closeModal();
+          formReset();
+          navigate("/profile");
+        });
       })
       .catch(console.error);
   };
