@@ -149,27 +149,33 @@ function App() {
 
   const handleCardLike = ({ likes, _id }) => {
     const token = localStorage.getItem("jwt");
-    console.log(_id);
-    likes
-      ? addCardLike(_id, token)
-          .then((updatedCard) => {
-            console.log("like");
-            console.log(likes);
-            setClothingItems((cards) =>
-              cards.map((item) => (item.id === _id ? updatedCard : item))
-            );
-          })
-          .catch((err) => console.log(err))
-      : removeCardLike(_id, token)
-          .then((updatedCard) => {
-            console.log("Unlike");
-            console.log(likes);
-            setClothingItems((items) =>
-              items.map((item) => (item.id === _id ? updatedCard : item))
-            );
-          })
-          .catch((err) => console.log(err));
+    const user = auth.getUser(token);
+    console.log(user);
+    const isLiked = likes && likes.includes(user._id);
+    console.log(isLiked);
+    if (!isLiked) {
+      addCardLike(_id, token)
+        .then((updatedCard) => {
+          console.log("like");
+          console.log(likes);
+          setClothingItems((cards) =>
+            cards.map((item) => (item.id === _id ? updatedCard : item))
+          );
+        })
+        .catch((err) => console.log(err));
+    } else {
+      removeCardLike(_id, token)
+        .then((updatedCard) => {
+          console.log("Unlike");
+          console.log(likes);
+          setClothingItems((items) =>
+            items.map((item) => (item.id === _id ? updatedCard : item))
+          );
+        })
+        .catch((err) => console.log(err));
+    }
   };
+
   const signOut = () => {
     setIsLoggedIn(false);
     localStorage.clear();

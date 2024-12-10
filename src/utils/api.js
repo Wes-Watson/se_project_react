@@ -38,7 +38,11 @@ function addCardLike(id, token) {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-  }).then(checkResponse);
+  })
+    .then(checkResponse)
+    .catch((error) => {
+      console.error("Error removing like:", error);
+    });
 }
 
 function removeCardLike(id, token) {
@@ -50,8 +54,8 @@ function removeCardLike(id, token) {
     },
   })
     .then(checkResponse)
-    .then((updatedCard) => {
-      return updatedCard.data;
+    .catch((error) => {
+      console.error("Error removing like:", error);
     });
 }
 

@@ -18,7 +18,7 @@ function ItemCard({
   };
 
   const currentUser = useContext(CurrentUserContext);
-  const isLiked = item.likes.some((item) => item._id);
+  const isLiked = item.likes;
   const likeButtonClassName = isLiked
     ? "card__like card__like_active"
     : "card__like";
