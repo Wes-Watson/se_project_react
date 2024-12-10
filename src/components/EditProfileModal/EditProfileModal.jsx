@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import RegisterModal from "../RegisterModal/RegisterModal";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useContext } from "react";
 
 const EditProfileModal = ({
   openModal,
@@ -10,6 +11,7 @@ const EditProfileModal = ({
   setOpenModal,
   updateUser,
 }) => {
+  const currentUser = useContext(CurrentUserContext);
   //useState functions
 
   const [name, setName] = useState("");
@@ -50,7 +52,7 @@ const EditProfileModal = ({
           type="Text"
           className="modal__input"
           id="Edit Name"
-          placeholder="Name"
+          placeholder={currentUser.name}
           value={name}
           onChange={handleNameChange}
           required
@@ -62,7 +64,7 @@ const EditProfileModal = ({
           type="url"
           className="modal__input"
           id="avatar"
-          placeholder="Avatar"
+          placeholder={currentUser.avatar}
           value={avatar}
           onChange={handleAvatarChange}
           required

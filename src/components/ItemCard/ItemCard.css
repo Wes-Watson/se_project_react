@@ -11,6 +11,34 @@
   border-width: 0.5px;
 }
 
+.card__container {
+  display: flex;
+  position: absolute;
+  top: 15px;
+  align-items: center;
+}
+
+.card__like {
+  background-image: url(../../assets/Like\ button.png);
+
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 18px;
+  height: 15px;
+  border: none;
+}
+
+.card__like:hover {
+  opacity: 50%;
+  transition: 0.2s linear;
+  cursor: pointer;
+}
+.card__like-button_active {
+  background-image: url(../../assets/Filled\ Button.png);
+}
+
 .card__image {
   max-width: 100%;
   max-height: 100%;
@@ -23,9 +51,11 @@
   font-size: 16px;
   line-height: 20px;
   margin: 0;
-  position: absolute;
+
   top: 17px;
   padding: 2px 12px;
   background-color: #fff;
   opacity: 0.6;
+  margin-left: 25px;
+  margin-right: 10px;
 }

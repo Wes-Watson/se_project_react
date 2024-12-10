@@ -15,7 +15,13 @@ import { handleWeatherData } from "../../utils/weatherApi";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
-import { getItems, addClothing, deleteClothing } from "../../utils/api";
+import {
+  getItems,
+  addClothing,
+  deleteClothing,
+  addCardLike,
+  removeCardLike,
+} from "../../utils/api";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import * as auth from "../../utils/auth";
@@ -118,13 +124,13 @@ function App() {
       .catch(console.error);
   };
 
-  const updateUser = ({ name, avatar }, formReset) => {
+  const updateUser = ({ name, avatar }) => {
     const token = localStorage.getItem("jwt");
     auth
       .editUser({ name, avatar }, token)
-      .then(() => {
+      .then((user) => {
+        setCurrentUser(user);
         closeModal();
-        formReset();
       })
       .catch(console.error);
   };
@@ -139,6 +145,27 @@ function App() {
         closeModal();
       })
       .catch(console.error);
+  };
+
+  const handleCardLike = ( likes, _id ) => {
+    const token = localStorage.getItem("jwt");
+
+    !likes
+      ? addCardLike(_id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === _id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err))
+      : removeCardLike(_id, token)
+          .then((updatedCard) => {
+            console.log(updatedCard);
+            setClothingItems((items) =>
+              items.map((item) => (item._id === _id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err));
   };
 
   // useEffect Functions
@@ -215,6 +242,8 @@ function App() {
                     weatherInfo={weatherInfo}
                     handleImageClick={handleImageClick}
                     clothingItems={clothingItems}
+                    onCardLike={handleCardLike}
+                    isLoggedIn={isLoggedIn}
                   />
                 }
               />

@@ -31,4 +31,28 @@ function deleteClothing(id, token) {
   }).then(checkResponse);
 }
 
-export { getItems, addClothing, deleteClothing };
+function addCardLike(id, token) {
+  return fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  }).then(checkResponse);
+}
+
+function removeCardLike(_id, token) {
+  return fetch(`${baseUrl}/items/${_id}/likes`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  })
+    .then(checkResponse)
+    .then((updatedCard) => {
+      return updatedCard.data;
+    });
+}
+
+export { getItems, addClothing, deleteClothing, addCardLike, removeCardLike };
