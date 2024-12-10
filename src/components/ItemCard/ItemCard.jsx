@@ -10,15 +10,15 @@ function ItemCard({
   isLoggedIn,
 }) {
   const handleImageClick = () => {
+    console.log(item);
     onImageClick(item);
   };
   const handlLike = () => {
     onCardLike(item);
   };
 
-  
   const currentUser = useContext(CurrentUserContext);
-  const isLiked = item.likes.some((_id) => currentUser._id);
+  const isLiked = item.likes.some((item) => item._id);
   const likeButtonClassName = isLiked
     ? "card__like card__like_active"
     : "card__like";

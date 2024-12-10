@@ -41,8 +41,8 @@ function addCardLike(id, token) {
   }).then(checkResponse);
 }
 
-function removeCardLike(_id, token) {
-  return fetch(`${baseUrl}/items/${_id}/likes`, {
+function removeCardLike(id, token) {
+  return fetch(`${baseUrl}/items/${id}/likes`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

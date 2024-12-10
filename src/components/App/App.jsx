@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
@@ -147,27 +147,33 @@ function App() {
       .catch(console.error);
   };
 
-  const handleCardLike = ( likes, _id ) => {
+  const handleCardLike = ({ likes, _id }) => {
     const token = localStorage.getItem("jwt");
-
-    !likes
+    console.log(_id);
+    likes
       ? addCardLike(_id, token)
           .then((updatedCard) => {
+            console.log("like");
+            console.log(likes);
             setClothingItems((cards) =>
-              cards.map((item) => (item._id === _id ? updatedCard : item))
+              cards.map((item) => (item.id === _id ? updatedCard : item))
             );
           })
           .catch((err) => console.log(err))
       : removeCardLike(_id, token)
           .then((updatedCard) => {
-            console.log(updatedCard);
+            console.log("Unlike");
+            console.log(likes);
             setClothingItems((items) =>
-              items.map((item) => (item._id === _id ? updatedCard : item))
+              items.map((item) => (item.id === _id ? updatedCard : item))
             );
           })
           .catch((err) => console.log(err));
   };
-
+  const signOut = () => {
+    setIsLoggedIn(false);
+    localStorage.clear();
+  };
   // useEffect Functions
   useEffect(() => {
     if (!openModal) return;
@@ -256,6 +262,7 @@ function App() {
                       addButtonClick={addButtonClick}
                       clothingItems={clothingItems}
                       editUserClick={editUserClick}
+                      signOut={signOut}
                     />
                   </ProtectedRoute>
                 }

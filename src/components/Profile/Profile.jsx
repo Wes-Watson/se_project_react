@@ -8,11 +8,12 @@ function Profile({
   addButtonClick,
   clothingItems,
   editUserClick,
+  signOut,
 }) {
   return (
     <div className="profile">
       <section className="profile__sidebar">
-        <Sidebar editUserClick={editUserClick} />
+        <Sidebar editUserClick={editUserClick} signOut={signOut}/>
       </section>
       <section className="profile__clothing">
         <ClothesSection
