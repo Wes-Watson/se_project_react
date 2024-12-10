@@ -118,6 +118,17 @@ function App() {
       .catch(console.error);
   };
 
+  const updateUser = ({ name, avatar }, formReset) => {
+    const token = localStorage.getItem("jwt");
+    auth
+      .editUser({ name, avatar }, token)
+      .then(() => {
+        closeModal();
+        formReset();
+      })
+      .catch(console.error);
+  };
+
   const handleDeleteClick = () => {
     const token = localStorage.getItem("jwt");
     deleteClothing(selectedCard._id, token)
@@ -261,6 +272,7 @@ function App() {
             handleOverlay={handleOverlay}
             isOpen={openModal === "Edit"}
             setOpenModal={setOpenModal}
+            updateUser={updateUser}
           />
         </CurrentTemperatureUnitContext.Provider>
       </div>

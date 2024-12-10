@@ -33,10 +33,6 @@ const LoginModal = ({
     logInUser({ email, password }, formReset);
   };
 
-  const addButtonClick = () => {
-    setOpenModal("add clothing");
-  };
-
   const changeModal = (evt) => {
     evt.preventDefault();
     console.log("click");

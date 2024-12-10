@@ -8,6 +8,7 @@ const EditProfileModal = ({
   handleOverlay,
   isOpen,
   setOpenModal,
+  updateUser,
 }) => {
   //useState functions
 
@@ -30,20 +31,13 @@ const EditProfileModal = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //logInUser({ email, password }, formReset);
-  };
-
-  const changeModal = (evt) => {
-    evt.preventDefault();
-    console.log("click");
-    setOpenModal("register user");
+    updateUser({ name, avatar }, formReset);
   };
 
   return (
     <ModalWithForm
       title="Edit Profile"
       buttonText="Save Changes"
-      additionalText="or Sign up"
       openModal={openModal}
       closeModal={closeModal}
       handleOverlay={handleOverlay}
