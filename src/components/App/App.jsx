@@ -148,16 +148,17 @@ function App() {
   };
 
   const handleCardLike = ({ likes, _id }) => {
+    console.log(likes);
     const token = localStorage.getItem("jwt");
     const user = auth.getUser(token);
     console.log(user);
-    const isLiked = likes && likes.includes(user._id);
+    const isLiked = likes && likes.some((_id) => _id === user._id);
+    console.log(typeof likes);
+    console.log(typeof user);
     console.log(isLiked);
     if (!isLiked) {
       addCardLike(_id, token)
         .then((updatedCard) => {
-          console.log("like");
-          console.log(likes);
           setClothingItems((cards) =>
             cards.map((item) => (item.id === _id ? updatedCard : item))
           );
@@ -166,8 +167,6 @@ function App() {
     } else {
       removeCardLike(_id, token)
         .then((updatedCard) => {
-          console.log("Unlike");
-          console.log(likes);
           setClothingItems((items) =>
             items.map((item) => (item.id === _id ? updatedCard : item))
           );
