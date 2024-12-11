@@ -4,7 +4,13 @@ import ItemCard from "../ItemCard/ItemCard";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useContext } from "react";
 
-function ClothesSection({ handleImageClick, addButtonClick, clothingItems }) {
+function ClothesSection({
+  handleImageClick,
+  addButtonClick,
+  clothingItems,
+  onCardLike,
+  isLoggedIn,
+}) {
   const currentUser = useContext(CurrentUserContext);
 
   const userItems = clothingItems.filter((item) => {
@@ -26,9 +32,11 @@ function ClothesSection({ handleImageClick, addButtonClick, clothingItems }) {
           .map((item) => {
             return (
               <ItemCard
+                isLoggedIn={isLoggedIn}
                 key={item._id}
                 item={item}
                 onImageClick={handleImageClick}
+                onCardLike={onCardLike}
               />
             );
           })}

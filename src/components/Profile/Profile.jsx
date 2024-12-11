@@ -9,17 +9,21 @@ function Profile({
   clothingItems,
   editUserClick,
   signOut,
+  onCardLike,
+  isLoggedIn,
 }) {
   return (
     <div className="profile">
       <section className="profile__sidebar">
-        <Sidebar editUserClick={editUserClick} signOut={signOut}/>
+        <Sidebar editUserClick={editUserClick} signOut={signOut} />
       </section>
       <section className="profile__clothing">
         <ClothesSection
           handleImageClick={handleImageClick}
           addButtonClick={addButtonClick}
           clothingItems={clothingItems}
+          onCardLike={onCardLike}
+          isLoggedIn={isLoggedIn}
         />
       </section>
     </div>

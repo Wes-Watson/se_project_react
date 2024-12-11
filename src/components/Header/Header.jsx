@@ -63,11 +63,11 @@ function Header({
       ) : (
         <div className="header__container">
           <ToggleSwitch />
-          <button onClick={logInClick} className="header__button">
-            Log In
-          </button>
           <button onClick={signUpClick} className="header__button">
             Sign Up
+          </button>
+          <button onClick={logInClick} className="header__button">
+            Log In
           </button>
         </div>
       )}

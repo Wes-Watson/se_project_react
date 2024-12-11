@@ -91,6 +91,7 @@ function App() {
         setClothingItems([item, ...clothingItems]);
         closeModal();
         formReset();
+        navigate("/profile");
       })
       .catch(console.error);
   };
@@ -263,6 +264,8 @@ function App() {
                       clothingItems={clothingItems}
                       editUserClick={editUserClick}
                       signOut={signOut}
+                      onCardLike={handleCardLike}
+                      isLoggedIn={isLoggedIn}
                     />
                   </ProtectedRoute>
                 }
