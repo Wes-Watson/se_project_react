@@ -19,7 +19,7 @@
 }
 
 .card__like {
-  background-image: url("../../assets/Like\ button.png");
+  background-image: url(../../assets/Like-button.png);
   background-color: transparent;
   background-position: center;
   background-repeat: no-repeat;
@@ -35,7 +35,7 @@
   cursor: pointer;
 }
 .card__like-button_active {
-  background-image: url("../../assets/Filled\ Button.png");
+  background-image: url(../../assets/Filled-Button.png);
 }
 
 .card__image {
