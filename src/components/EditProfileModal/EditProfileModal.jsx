@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useContext } from "react";
+import { useEffect } from "react";
 
 const EditProfileModal = ({
   openModal,
@@ -15,12 +16,24 @@ const EditProfileModal = ({
   //useState functions
 
   const [name, setName] = useState("");
+  useEffect(() => {
+    if (currentUser) {
+      setName(currentUser.name);
+    }
+  }, [currentUser]);
+
   const handleNameChange = (e) => {
     console.log(e.target.value);
     setName(e.target.value);
   };
 
   const [avatar, setAvatar] = useState("");
+
+  useEffect(() => {
+    if (currentUser) {
+      setAvatar(currentUser.avatar);
+    }
+  }, [currentUser]);
   const handleAvatarChange = (e) => {
     setAvatar(e.target.value);
     console.log(e.target.value);
@@ -52,7 +65,6 @@ const EditProfileModal = ({
           type="Text"
           className="modal__input"
           id="Edit Name"
-          placeholder={currentUser.name}
           value={name}
           onChange={handleNameChange}
           required
@@ -64,7 +76,6 @@ const EditProfileModal = ({
           type="url"
           className="modal__input"
           id="avatar"
-          placeholder={currentUser.avatar}
           value={avatar}
           onChange={handleAvatarChange}
           required

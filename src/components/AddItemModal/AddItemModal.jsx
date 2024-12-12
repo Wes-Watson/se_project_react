@@ -10,6 +10,7 @@ const AddItemModal = ({
 }) => {
   //useState functions
   const [name, setName] = useState("");
+  
   const handleNameChange = (e) => {
     console.log(e.target.value);
     setName(e.target.value);

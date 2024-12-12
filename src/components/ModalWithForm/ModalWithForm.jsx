@@ -1,4 +1,6 @@
 import "./ModalWithForm.css";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useContext } from "react";
 
 function ModalWithForm({
   children,
@@ -12,6 +14,7 @@ function ModalWithForm({
   additionalText,
   changeModal,
 }) {
+  const currentUser = useContext(CurrentUserContext);
   return (
     <div
       className={`modal modal_type_${title} ${isOpen ? "modal_open" : ""} `}
@@ -33,7 +36,9 @@ function ModalWithForm({
             >
               {buttonText}
             </button>
-            <button className="modal__change" onClick={changeModal}>{additionalText}</button>
+            <button className="modal__change" onClick={changeModal}>
+              {additionalText}
+            </button>
           </div>
         </form>
       </div>

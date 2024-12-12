@@ -91,8 +91,13 @@ function App() {
         setClothingItems([item, ...clothingItems]);
         closeModal();
         formReset();
-        navigate("/profile");
       })
+      .then(
+        getItems().then((data) => {
+          console.log(data);
+          setClothingItems(data);
+        })
+      )
       .catch(console.error);
   };
 
