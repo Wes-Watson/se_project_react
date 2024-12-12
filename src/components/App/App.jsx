@@ -88,16 +88,11 @@ function App() {
 
     addClothing(item, token)
       .then((item) => {
-        setClothingItems([item, ...clothingItems]);
+        setClothingItems([item.data, ...clothingItems]);
         closeModal();
         formReset();
       })
-      .then(
-        getItems().then((data) => {
-          console.log(data);
-          setClothingItems(data);
-        })
-      )
+
       .catch(console.error);
   };
 
