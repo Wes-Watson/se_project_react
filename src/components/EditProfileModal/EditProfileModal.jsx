@@ -19,6 +19,8 @@ const EditProfileModal = ({
   useEffect(() => {
     if (currentUser) {
       setName(currentUser.name);
+    } else {
+      setName("");
     }
   }, [currentUser]);
 
@@ -32,6 +34,8 @@ const EditProfileModal = ({
   useEffect(() => {
     if (currentUser) {
       setAvatar(currentUser.avatar);
+    } else {
+      setAvatar("");
     }
   }, [currentUser]);
   const handleAvatarChange = (e) => {
