@@ -99,12 +99,12 @@ const RegisterModal = ({
           required
         />
       </label>
-      <label htmlFor="url" className="modal__label">
+      <label htmlFor="avatar url" className="modal__label">
         Avatar URL{" "}
         <input
           type="url"
           className="modal__input"
-          id="avatar"
+          id="avatar url"
           placeholder="Avatar URL"
           value={avatar}
           onChange={handleURLChange}

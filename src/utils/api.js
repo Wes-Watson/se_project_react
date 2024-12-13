@@ -1,5 +1,3 @@
-import { json } from "react-router-dom";
-
 const baseUrl = "http://localhost:3001";
 
 function checkResponse(res) {
@@ -59,4 +57,11 @@ function removeCardLike(id, token) {
     });
 }
 
-export { getItems, addClothing, deleteClothing, addCardLike, removeCardLike };
+export {
+  getItems,
+  addClothing,
+  deleteClothing,
+  addCardLike,
+  removeCardLike,
+  checkResponse,
+};

@@ -62,12 +62,12 @@ const LoginModal = ({
           onChange={handleEmailChange}
         />
       </label>
-      <label htmlFor="Password" className="modal__label">
+      <label htmlFor="Input Password" className="modal__label">
         Password{" "}
         <input
           type="Password"
           className="modal__input"
-          id="Password"
+          id="Input Password"
           placeholder="Password"
           value={password}
           onChange={handlePasswordChange}
