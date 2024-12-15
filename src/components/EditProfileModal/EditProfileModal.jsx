@@ -17,7 +17,7 @@ const EditProfileModal = ({
 
   const [name, setName] = useState("");
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser && currentUser.name) {
       setName(currentUser.name);
     } else {
       setName("");
@@ -32,7 +32,7 @@ const EditProfileModal = ({
   const [avatar, setAvatar] = useState("");
 
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser && currentUser.avatar) {
       setAvatar(currentUser.avatar);
     } else {
       setAvatar("");
