@@ -51,12 +51,12 @@ const LoginModal = ({
       changeModal={changeModal}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="Email" className="modal__label">
+      <label htmlFor="Log In Email" className="modal__label">
         Email{" "}
         <input
           type="Email"
           className="modal__input"
-          id="Log in"
+          id="Log In Email"
           placeholder="Email"
           value={email}
           onChange={handleEmailChange}
