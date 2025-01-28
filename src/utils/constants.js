@@ -43,3 +43,8 @@ export const location = {
 };
 
 export const APIkey = "2fcf3debcdf32a1fae1e28afaa0aeeb0";
+
+export const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.wes-first-website.home.kg"
+    : "http://localhost:3001";
