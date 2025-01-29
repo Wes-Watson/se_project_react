@@ -117,7 +117,6 @@ function App() {
           setIsLoggedIn(true);
           setCurrentUser(user);
           closeModal();
-          formReset();
           navigate("/profile");
         });
       })
